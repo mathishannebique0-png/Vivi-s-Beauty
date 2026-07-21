@@ -1,0 +1,1378 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ============================================================
+     SEO — à personnaliser pour chaque commerce
+     (le [À REMPLACER] du <title> = nom exact de la commune)
+     ============================================================ -->
+<title>Vivi's Beauty — Institut de beauté à [À REMPLACER : commune], Somme (80)</title>
+<meta name="description" content="Vivi's Beauty, institut de beauté de village dans la Somme. Soins du visage et du corps, épilation, manucure, extensions de cils et microblading. Un moment de douceur, sur-mesure et en confiance, près de chez vous.">
+
+<!-- Adresse canonique (à remplacer par le vrai domaine une fois en ligne) -->
+<link rel="canonical" href="https://www.vivis-beauty.fr/">
+
+<!-- Open Graph — partage sur les réseaux -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vivi's Beauty — Institut de beauté, Somme (80)">
+<meta property="og:description" content="Soins du visage et du corps, épilation, manucure, extensions de cils et microblading. Un moment de douceur, en toute confiance.">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Vivi's Beauty">
+<meta property="og:url" content="https://www.vivis-beauty.fr/">
+
+<!-- ============================================================
+     POLICES GOOGLE — 2 familles maximum (SEULE dépendance externe)
+     Titres  : Cormorant Garamond (serif d'affichage, élégant, "beauté")
+     Texte   : Jost (sans-serif géométrique, propre)
+     Pile de secours system-ui / serif prévue plus bas dans le CSS,
+     pour rester beau même si Google Fonts ne charge pas.
+     ============================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ================================================================
+   VIVI'S BEAUTY — PAGE VITRINE AUTONOME (déployable telle quelle)
+   Direction artistique : « Boutique Signature »
+   ----------------------------------------------------------------
+   GUIDE DE DUPLICATION (cloner ce fichier pour un autre commerce,
+   ex. coiffure / boulangerie / artisan, en ~10 minutes) :
+     1. (a) Changer les 2 SEULES couleurs ci-dessous.
+     2.     Changer les 2 polices (balise <link> + var(--font-*)).
+     3. (c) Modifier les textes du HTML (repères « SECTION : … »).
+     4.     Compléter les marqueurs [À REMPLACER] / [PHOTO À FOURNIR].
+     5.     Mettre à jour le bloc JSON-LD en bas de page.
+   RÈGLE D'OR : aucune couleur n'est écrite en dur ailleurs que dans
+   les 2 variables (a). Tout le reste dérive via color-mix().
+   ================================================================ */
+
+/* ================================================================
+   (a) LES DEUX SEULES LIGNES À PERSONNALISER (couleurs du logo)
+   ----------------------------------------------------------------
+   Pré-remplies avec les couleurs du logo Vivi's Beauty : un NOIR
+   profond + un BLANC chaud (crème très clair). Pour un autre
+   commerce, il suffit de remplacer ces DEUX lignes par les 2
+   couleurs de son logo : tout le site se ré-habille automatiquement.
+   Le fort contraste entre les 2 couleurs garantit la lisibilité
+   dans les deux sens (encre sur clair ET clair sur foncé), que la
+   couleur choisie soit claire ou foncée.
+
+   Variante « cocon » plus chaude (à copier-coller à la place) :
+     --color-primary: #2a1e17;   (espresso)
+     --color-accent:  #f5ece2;   (nude crème)
+   ================================================================ */
+:root{
+  --color-primary: #17130f;  /* Noir  — couleur foncée / encre du logo   */
+  --color-accent:  #f7f2ea;  /* Blanc — couleur claire / fond du logo    */
+
+  /* --------------------------------------------------------------
+     (b) TOKENS DÉRIVÉS — calculés AUTOMATIQUEMENT via color-mix()
+     à partir des 2 couleurs ci-dessus. NE RIEN écrire en dur ici.
+     -------------------------------------------------------------- */
+  /* Surfaces claires */
+  --surface:        var(--color-accent);
+  --surface-2:      color-mix(in srgb, var(--color-primary) 4%,  var(--color-accent));
+  --surface-3:      color-mix(in srgb, var(--color-primary) 8%,  var(--color-accent));
+  /* Encre / textes sur surface claire */
+  --ink:            color-mix(in srgb, var(--color-primary) 92%, var(--color-accent));
+  --ink-soft:       color-mix(in srgb, var(--color-primary) 64%, var(--color-accent));
+  --ink-faint:      color-mix(in srgb, var(--color-primary) 50%, var(--color-accent)); /* 50% (vs 40%) = micro-labels plus lisibles */
+  /* Lignes / bordures (UNE seule intensité principale) */
+  --line:           color-mix(in srgb, var(--color-primary) 14%, var(--color-accent));
+  --line-strong:    color-mix(in srgb, var(--color-primary) 26%, var(--color-accent));
+  /* Sections foncées (hero / citation / pied de page) = inversion */
+  --surface-invert: var(--color-primary);
+  --on-invert:      color-mix(in srgb, var(--color-accent) 94%, var(--color-primary));
+  --on-invert-soft: color-mix(in srgb, var(--color-accent) 66%, var(--color-primary)); /* 66% = meilleur contraste sur fond foncé */
+  --line-invert:    color-mix(in srgb, var(--color-accent) 20%, var(--color-primary));
+  /* États interactifs / focus */
+  --focus:          color-mix(in srgb, var(--color-primary) 55%, var(--color-accent));
+
+  /* UNE seule intensité d'ombre, UN seul rayon */
+  --shadow: 0 1px 2px color-mix(in srgb, var(--color-primary) 7%, transparent),
+            0 12px 34px color-mix(in srgb, var(--color-primary) 8%, transparent);
+  --radius: 14px;
+
+  /* Échelle d'espacement 8px */
+  --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:48px; --s6:64px; --s7:96px; --s8:128px;
+  /* Largeur de lecture confortable (65-75 caractères) */
+  --measure: 68ch;
+
+  /* Piles de polices avec secours système */
+  --font-title: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-body:  "Jost", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ================================================================
+   RESET LÉGER / BASE — mobile-first
+   ================================================================ */
+*, *::before, *::after{ box-sizing:border-box; }
+html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+
+body{
+  margin:0;
+  background:var(--surface);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-weight:400;
+  font-size:16px;            /* corps >= 16px : lisible sans zoom */
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;         /* garde-fou anti-scroll horizontal */
+  /* place réservée pour la barre d'action mobile collante (+ encoche) */
+  padding-bottom:calc(56px + env(safe-area-inset-bottom));
+}
+@media (min-width:900px){
+  body{ padding-bottom:0; }  /* la barre mobile disparaît */
+}
+
+img, svg{ max-width:100%; height:auto; display:block; }
+a{ color:inherit; text-decoration:none; }
+/* Reset des marges par défaut du navigateur (figure = 40px : cause de débordement) */
+figure, blockquote{ margin:0; }
+
+/* Titres serif d'affichage */
+h1,h2,h3,h4{
+  font-family:var(--font-title);
+  font-weight:500;
+  line-height:1.08;
+  margin:0;
+  color:var(--ink);
+  letter-spacing:.2px;
+}
+
+/* Les ancres tiennent compte de l'en-tête collant */
+[id]{ scroll-margin-top:88px; }
+
+/* Accessibilité : focus visible piloté par --focus */
+a:focus-visible, button:focus-visible{
+  outline:2px solid var(--focus);
+  outline-offset:3px;
+  border-radius:calc(var(--radius) / 2);
+}
+
+/* Lien d'évitement (accessibilité clavier / lecteurs d'écran) */
+.skip-link{
+  position:absolute; left:var(--s2); top:-999px; z-index:100;
+  background:var(--ink); color:var(--surface);
+  padding:var(--s1) var(--s3); border-radius:999px;
+  font-size:.85rem; letter-spacing:.02em;
+}
+.skip-link:focus{ top:var(--s2); }
+
+/* Masque visuellement mais garde pour lecteurs d'écran */
+.sr-only{
+  position:absolute; width:1px; height:1px;
+  padding:0; margin:-1px; overflow:hidden;
+  clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+
+/* ================================================================
+   UTILITAIRES DE MISE EN PAGE
+   ================================================================ */
+.wrap{
+  width:100%;
+  max-width:1200px;
+  margin-inline:auto;
+  padding-inline:var(--s3);   /* 24px sur mobile */
+}
+@media (min-width:640px){ .wrap{ padding-inline:var(--s4); } }
+@media (min-width:900px){ .wrap{ padding-inline:var(--s5); } }
+
+.section{ padding-block:var(--s7); }         /* rythme vertical généreux */
+@media (min-width:900px){ .section{ padding-block:var(--s8); } }
+
+.measure{ max-width:var(--measure); }
+
+/* Marqueur "à compléter" — visible, sobre, cohérent partout.
+   Contient le texte littéral [À REMPLACER] tout en restant élégant. */
+.tbr{
+  display:inline-block;
+  font-family:var(--font-body);
+  font-size:.6rem;
+  font-weight:500;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  border:1px solid var(--line-strong);
+  border-radius:999px;
+  padding:2px 9px;
+  line-height:1.4;
+  vertical-align:middle;
+  white-space:nowrap;
+}
+
+/* Sur-titre : petites capitales espacées + numérotation discrète */
+.eyebrow{
+  display:flex;
+  align-items:center;
+  gap:var(--s2);
+  font-size:.72rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  margin:0 0 var(--s3);
+}
+.eyebrow .num{
+  font-variant-numeric:tabular-nums;
+  color:var(--ink-soft);
+}
+.eyebrow .rule{
+  flex:0 0 auto;
+  width:34px;
+  height:1px;
+  background:var(--line-strong);
+}
+.eyebrow--center{ justify-content:center; text-align:center; }
+
+/* Échelle typographique fluide via clamp() */
+.display{ font-size:clamp(2.7rem, 8.5vw, 5.4rem); }
+.h2{ font-size:clamp(2rem, 4.6vw, 3.1rem); margin-bottom:var(--s3); }
+.lead{
+  font-size:clamp(1.06rem, 2.2vw, 1.22rem);
+  color:var(--ink-soft);
+  line-height:1.7;
+}
+p{ margin:0 0 var(--s2); }
+.muted{ color:var(--ink-soft); }
+
+/* ================================================================
+   BOUTONS — DÉCISION UNIQUE : pilules arrondies partout
+   ================================================================ */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:var(--s1);
+  min-height:48px;                 /* zone tactile >= 44px */
+  padding:0 var(--s3);
+  border-radius:999px;             /* pilule : tous les boutons */
+  font-family:var(--font-body);
+  font-size:.95rem;
+  font-weight:500;
+  letter-spacing:.02em;
+  cursor:pointer;
+  border:1px solid transparent;
+  transition:transform .18s ease, background-color .2s ease, color .2s ease, border-color .2s ease;
+  white-space:nowrap;
+}
+.btn:hover{ transform:translateY(-1px); }
+.btn:active{ transform:translateY(0); }
+
+/* Bouton plein = encre sur clair */
+.btn--solid{ background:var(--ink); color:var(--surface); }
+.btn--solid:hover{ background:var(--color-primary); }
+
+/* Bouton contour */
+.btn--ghost{ background:transparent; color:var(--ink); border-color:var(--line-strong); }
+.btn--ghost:hover{ background:var(--surface-3); border-color:var(--ink); }
+
+/* Variantes sur fond foncé (hero / citation / pied) = inversion */
+.btn--solid-invert{ background:var(--on-invert); color:var(--surface-invert); }
+.btn--solid-invert:hover{ background:var(--color-accent); }
+.btn--ghost-invert{ background:transparent; color:var(--on-invert); border-color:var(--line-invert); }
+.btn--ghost-invert:hover{ border-color:var(--on-invert); background:color-mix(in srgb, var(--color-accent) 8%, transparent); }
+
+.icon{ width:18px; height:18px; flex:0 0 auto; }
+
+/* ================================================================
+   APPARITION AU DÉFILEMENT — discrète, respecte reduced-motion
+   ================================================================ */
+.reveal{
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .7s ease, transform .7s ease;
+}
+.reveal.is-visible{ opacity:1; transform:none; }
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity:1; transform:none; transition:none; }
+}
+
+/* ================================================================
+   SECTION : EN-TÊTE / NAVIGATION collante en haut (hairline)
+   ================================================================ */
+.site-header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:color-mix(in srgb, var(--surface) 85%, transparent);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.site-header__inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:var(--s2);
+  min-height:64px;
+}
+/* Lockup typographique du logo */
+.logo{
+  font-family:var(--font-title);
+  font-weight:600;
+  font-size:1.55rem;
+  letter-spacing:.5px;
+  line-height:1;
+  color:var(--ink);
+  display:inline-flex;
+  align-items:center;
+  gap:var(--s1);
+  min-width:0;
+}
+.logo .logo__mark{ width:22px; height:22px; color:var(--ink-soft); flex:0 0 auto; }
+
+.nav{ display:none; }
+@media (min-width:900px){
+  .nav{ display:flex; align-items:center; gap:var(--s4); }
+  .nav a{
+    position:relative;
+    font-size:.8rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    padding-block:.4em;
+    transition:color .2s ease;
+  }
+  /* Fin soulignement animé au survol (détail éditorial) */
+  .nav a::after{
+    content:""; position:absolute; left:0; bottom:0;
+    width:0; height:1px; background:var(--ink);
+    transition:width .25s ease;
+  }
+  .nav a:hover{ color:var(--ink); }
+  .nav a:hover::after{ width:100%; }
+}
+.header-cta{ display:none; }
+@media (min-width:640px){ .header-cta{ display:inline-flex; } }
+
+/* ================================================================
+   SECTION : HERO — sans photo obligatoire (typo + espace + motif)
+   Fond foncé = inversion des couleurs.
+   ================================================================ */
+.hero{
+  background:var(--surface-invert);
+  color:var(--on-invert);
+  position:relative;
+  overflow:hidden;
+}
+.hero__pattern{
+  position:absolute;
+  inset:0;
+  width:100%; height:100%;
+  pointer-events:none;
+  color:var(--on-invert);
+  opacity:.14;
+}
+.hero__inner{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:var(--s6);
+  padding-block:var(--s7);
+}
+@media (min-width:900px){
+  .hero__inner{
+    grid-template-columns:1.15fr .85fr;
+    align-items:center;
+    padding-block:var(--s8);
+    gap:var(--s6);
+  }
+}
+.hero__content{ min-width:0; }
+/* Logo du hero (fichier logo.png fourni par le commerce).
+   mix-blend-mode:lighten -> sur le fond fonce du hero, tout ce qui est
+   plus sombre que le fond (le fond noir du logo) disparait, et seul le
+   lettrage clair reste visible. Fonctionne avec un logo a fond noir OU
+   transparent. Aucune couleur en dur. */
+.hero__logo{
+  display:block;
+  width:auto; height:auto;
+  max-width:clamp(150px, 44vw, 210px);
+  margin-bottom:var(--s4);
+  mix-blend-mode:lighten;
+}
+.hero .eyebrow{ color:var(--on-invert-soft); }
+.hero .eyebrow .rule{ background:var(--line-invert); }
+.hero .eyebrow .num{ color:var(--on-invert-soft); }
+
+.hero__title{
+  color:var(--on-invert);
+  font-weight:500;
+  line-height:1.02;
+}
+.hero__title em{ font-style:italic; font-weight:400; color:var(--on-invert); }
+.hero__sub{
+  color:var(--on-invert-soft);
+  max-width:46ch;
+  margin-top:var(--s3);
+  font-size:clamp(1.05rem, 2.2vw, 1.2rem);
+  line-height:1.7;
+}
+.hero__specialties{
+  margin-top:var(--s4);
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--s1) var(--s2);
+  list-style:none;
+  padding:0;
+}
+.hero__specialties li{
+  font-size:.76rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--on-invert-soft);
+  border:1px solid var(--line-invert);
+  border-radius:999px;
+  padding:var(--s1) var(--s2);
+  min-width:0;
+}
+.hero__actions{
+  margin-top:var(--s5);
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--s2);
+}
+
+/* Colonne latérale du hero : carte signature + bloc photo */
+.hero__media{ min-width:0; display:flex; flex-direction:column; gap:var(--s3); }
+
+/* Carte "prestation signature" (idée reprise du candidat A) */
+.feature-card{
+  border:1px solid var(--line-invert);
+  border-radius:var(--radius);
+  padding:var(--s4);
+  background:color-mix(in srgb, var(--color-accent) 5%, transparent);
+}
+.feature-card .feature-card__eyebrow{
+  font-size:.68rem; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--on-invert-soft); margin:0 0 var(--s2);
+}
+.feature-card h2{ color:var(--on-invert); font-size:1.7rem; margin-bottom:var(--s1); }
+.feature-card p{ color:var(--on-invert-soft); font-size:.92rem; margin:0; }
+
+/* ================================================================
+   BLOC [PHOTO À FOURNIR] — élégant même vide
+   (hachures fines + filet intérieur + icône + label)
+   ================================================================ */
+.photo{
+  position:relative;
+  width:100%;
+  min-width:0;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      var(--surface-3) 0,
+      var(--surface-3) 10px,
+      var(--surface-2) 10px,
+      var(--surface-2) 20px
+    );
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:var(--s2);
+  text-align:center;
+  padding:var(--s4);
+  color:var(--ink-faint);
+  overflow:hidden;
+}
+.photo::after{ /* filet intérieur délicat, détail "couture" */
+  content:""; position:absolute; inset:8px;
+  border:1px solid var(--line); border-radius:calc(var(--radius) - 6px);
+  pointer-events:none;
+}
+.photo[data-ratio="4/5"]{ aspect-ratio:4/5; }
+.photo[data-ratio="3/2"]{ aspect-ratio:3/2; }
+.photo[data-ratio="1/1"]{ aspect-ratio:1/1; }
+.photo[data-ratio="3/4"]{ aspect-ratio:3/4; }
+.photo__icon{ width:34px; height:34px; color:var(--ink-faint); position:relative; }
+.photo__label{
+  position:relative;
+  font-size:.66rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+}
+/* Variante du bloc photo sur fond foncé (hero) */
+.photo--invert{ border-color:var(--line-invert); color:var(--on-invert-soft); background:
+    repeating-linear-gradient(
+      -45deg,
+      color-mix(in srgb, var(--color-accent) 4%, transparent) 0,
+      color-mix(in srgb, var(--color-accent) 4%, transparent) 10px,
+      color-mix(in srgb, var(--color-accent) 8%, transparent) 10px,
+      color-mix(in srgb, var(--color-accent) 8%, transparent) 20px
+    );
+}
+.photo--invert::after{ border-color:var(--line-invert); }
+.photo--invert .photo__icon,
+.photo--invert .photo__label{ color:var(--on-invert-soft); }
+
+/* ================================================================
+   SECTION : PRÉSENTATION (à propos)
+   ================================================================ */
+.about__grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:var(--s6);
+}
+@media (min-width:900px){
+  .about__grid{ grid-template-columns:.9fr 1.1fr; align-items:center; gap:var(--s7); }
+}
+.about__media{ min-width:0; max-width:420px; }
+.about__body{ min-width:0; }
+.about__body p{ color:var(--ink-soft); }
+.about__body p + p{ margin-top:var(--s2); }
+.signature-name{
+  margin-top:var(--s4);
+  font-family:var(--font-title);
+  font-size:1.7rem;
+  font-style:italic;
+  color:var(--ink);
+}
+.signature-role{
+  font-size:.72rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  margin-top:var(--s1);
+}
+
+/* Parcours en 3 étapes numérotées (idée signature du candidat C) */
+.steps{
+  border-top:1px solid var(--line);
+  margin-top:var(--s6);
+  display:grid;
+  grid-template-columns:1fr;
+  gap:0;
+}
+@media (min-width:640px){ .steps{ grid-template-columns:repeat(3,1fr); } }
+.step{ min-width:0; padding:var(--s4) 0; border-bottom:1px solid var(--line); }
+@media (min-width:640px){
+  .step{ padding:var(--s4) var(--s3); border-bottom:none; border-right:1px solid var(--line); }
+  .step:first-child{ padding-left:0; }
+  .step:last-child{ border-right:none; padding-right:0; }
+}
+.step__num{
+  font-family:var(--font-title);
+  font-size:2.3rem; font-style:italic;
+  color:var(--ink-faint); line-height:1;
+}
+.step__title{ font-family:var(--font-title); font-size:1.45rem; margin-top:var(--s2); }
+.step__text{ color:var(--ink-soft); font-size:.95rem; margin-top:var(--s1); margin-bottom:0; }
+
+/* ================================================================
+   SECTION : PRESTATIONS — cartes hairline, une carte-type répétée
+   ================================================================ */
+.services__grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:var(--s2);
+  margin-top:var(--s5);
+}
+@media (min-width:640px){ .services__grid{ grid-template-columns:repeat(2,1fr); gap:var(--s3); } }
+@media (min-width:900px){ .services__grid{ grid-template-columns:repeat(3,1fr); } }
+
+.service{
+  min-width:0;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:var(--surface);
+  padding:var(--s4);
+  display:flex;
+  flex-direction:column;
+  gap:var(--s2);
+  transition:transform .2s ease, box-shadow .25s ease, background-color .25s ease, border-color .2s ease;
+}
+.service:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--shadow);
+  background:var(--surface-2);
+  border-color:var(--line-strong);
+}
+.service__icon{ width:32px; height:32px; color:var(--ink-soft); }
+.service__title{ font-size:1.55rem; margin-top:var(--s1); }
+.service__text{ color:var(--ink-soft); font-size:.94rem; flex:1 1 auto; margin:0; }
+.service__price{
+  display:flex;
+  align-items:baseline;
+  flex-wrap:wrap;
+  gap:var(--s1) var(--s2);
+  border-top:1px solid var(--line);
+  padding-top:var(--s2);
+  margin-top:var(--s1);
+}
+.service__price .label{
+  font-size:.7rem; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-faint);
+}
+.service__price .value{ font-family:var(--font-title); font-size:1.4rem; color:var(--ink); }
+.service__price .tbr{ margin-left:auto; }
+
+.services__note{
+  margin-top:var(--s5);
+  padding-top:var(--s4);
+  border-top:1px solid var(--line);
+  color:var(--ink-faint);
+  font-size:.88rem;
+  max-width:var(--measure);
+}
+
+/* ================================================================
+   SECTION SIGNATURE : CITATION / PHILOSOPHIE (fond foncé, inversion)
+   Respiration émotionnelle (idée reprise du candidat B)
+   ================================================================ */
+.philo{
+  background:var(--surface-invert);
+  color:var(--on-invert);
+  position:relative;
+  overflow:hidden;
+  text-align:center;
+}
+.philo__motif{
+  position:absolute; left:50%; bottom:-16%; transform:translateX(-50%);
+  width:min(460px, 82vw); height:auto;
+  color:var(--line-invert); opacity:.6; pointer-events:none;
+}
+.philo .eyebrow{ color:var(--on-invert-soft); justify-content:center; }
+.philo .eyebrow .rule{ background:var(--line-invert); }
+.philo__quote{
+  position:relative;
+  font-family:var(--font-title);
+  font-weight:400; font-style:italic;
+  line-height:1.2;
+  font-size:clamp(1.8rem, 5vw, 3rem);
+  letter-spacing:-.01em;
+  max-width:22ch;
+  margin:var(--s4) auto var(--s3);
+  color:var(--on-invert);
+}
+.philo__cite{
+  position:relative;
+  font-size:.74rem; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--on-invert-soft);
+}
+
+/* ================================================================
+   SECTION : GALERIE — grille équilibrée de blocs [PHOTO À FOURNIR]
+   (6 tuiles, même ratio -> aucun "trou", alignements parfaits)
+   ================================================================ */
+.gallery__grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:var(--s2);
+  margin-top:var(--s5);
+}
+@media (min-width:640px){ .gallery__grid{ grid-template-columns:repeat(3,1fr); gap:var(--s3); } }
+.gallery__grid .photo{ padding:var(--s3); }
+
+/* ================================================================
+   SECTION : HORAIRES
+   ================================================================ */
+.hours{ background:var(--surface-2); border-block:1px solid var(--line); }
+.hours__grid{ display:grid; grid-template-columns:1fr; gap:var(--s6); }
+@media (min-width:900px){
+  .hours__grid{ grid-template-columns:.8fr 1.2fr; align-items:start; gap:var(--s7); }
+}
+.hours__intro{ min-width:0; }
+.status-badge{
+  display:inline-flex; align-items:center; gap:var(--s1);
+  font-size:.72rem; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ink-soft);
+  border:1px solid var(--line-strong); border-radius:999px;
+  padding:.5em 1em; margin-bottom:var(--s3);
+}
+.status-badge .dot{ width:8px; height:8px; border-radius:999px; background:var(--ink-soft); flex:0 0 auto; }
+.hours__cta{ margin-top:var(--s4); }
+.hours__list{ list-style:none; margin:var(--s2) 0 0; padding:0; min-width:0; }
+.hours__row{
+  display:flex; align-items:center; justify-content:space-between; gap:var(--s2);
+  padding:var(--s2) 0; border-bottom:1px solid var(--line);
+}
+.hours__row:last-child{ border-bottom:none; }
+.hours__day{ color:var(--ink); font-size:.98rem; display:inline-flex; align-items:center; }
+.hours__time{ color:var(--ink-soft); font-size:.94rem; text-align:right; min-width:0; }
+.hours__row--closed .hours__day,
+.hours__row--closed .hours__time{ color:var(--ink-faint); }
+.status-dot{
+  display:inline-block; width:8px; height:8px; border-radius:999px;
+  background:var(--ink-soft); margin-right:var(--s1); vertical-align:middle; flex:0 0 auto;
+}
+.status-dot--off{ background:transparent; border:1px solid var(--line-strong); }
+.hours__note{ margin-top:var(--s3); font-size:.85rem; color:var(--ink-faint); }
+
+/* ================================================================
+   SECTION : CONTACT — tel cliquable + plan SVG stylisé + Facebook
+   ================================================================ */
+.contact__grid{ display:grid; grid-template-columns:1fr; gap:var(--s6); }
+@media (min-width:900px){
+  .contact__grid{ grid-template-columns:1fr 1fr; gap:var(--s7); align-items:start; }
+}
+.contact__col{ min-width:0; }
+.contact__list{ list-style:none; margin:var(--s4) 0 0; padding:0; }
+.contact__item{
+  display:flex; align-items:flex-start; gap:var(--s3);
+  padding:var(--s3) 0; border-bottom:1px solid var(--line); min-width:0;
+}
+.contact__item:first-child{ padding-top:0; }
+.contact__ico{ width:22px; height:22px; flex:0 0 auto; color:var(--ink-soft); margin-top:4px; }
+.contact__body{ min-width:0; }
+.contact__label{
+  font-size:.7rem; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--ink-faint); margin-bottom:2px;
+}
+.contact__value{ font-size:1.05rem; color:var(--ink); min-width:0; overflow-wrap:anywhere; }
+.contact__value .tbr{ margin-left:var(--s1); }
+a.contact__value{ transition:color .2s ease; }
+a.contact__value:hover{ color:var(--ink-soft); }
+.contact__actions{ margin-top:var(--s4); display:flex; flex-wrap:wrap; gap:var(--s2); }
+
+/* Carte / plan STYLISÉ en SVG inline (PAS d'iframe / PAS de Google Maps) */
+.map{
+  min-width:0;
+  position:relative;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+  background:var(--surface-2);
+}
+.map__svg{ width:100%; height:auto; display:block; aspect-ratio:3/2; }
+/* Étiquette "plan indicatif" -> signale clairement un plan provisoire */
+.map__tag{
+  position:absolute; left:var(--s3); top:var(--s3);
+  display:inline-flex; align-items:center; gap:var(--s1);
+  background:color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  border:1px solid var(--line);
+  border-radius:999px; padding:6px 12px;
+  font-size:.72rem; letter-spacing:.06em; color:var(--ink);
+}
+.map__tag svg{ width:14px; height:14px; color:var(--ink-soft); flex:0 0 auto; }
+/* Fills du plan pilotés en CSS (var() garanti dans un contexte CSS) */
+.map-bg{ fill:var(--surface-2); }
+.map-road{ stroke:var(--line-strong); fill:none; stroke-linecap:round; }
+.map-road--minor{ stroke:var(--line); fill:none; stroke-linecap:round; }
+.map-block{ fill:var(--surface-3); stroke:var(--line); }
+.map-pin{ fill:var(--ink); }
+.map-pin__dot{ fill:var(--surface); }
+.map-halo{ fill:var(--surface-3); }
+.map__foot{
+  display:flex; align-items:center; justify-content:space-between; gap:var(--s2);
+  padding:var(--s3); border-top:1px solid var(--line); flex-wrap:wrap;
+}
+.map__addr{ font-size:.9rem; color:var(--ink-soft); min-width:0; }
+
+/* ================================================================
+   SECTION : PIED DE PAGE — fond foncé (inversion)
+   ================================================================ */
+.site-footer{ background:var(--surface-invert); color:var(--on-invert); }
+.footer__grid{
+  display:grid; grid-template-columns:1fr; gap:var(--s5); padding-block:var(--s7);
+}
+@media (min-width:640px){ .footer__grid{ grid-template-columns:1.4fr 1fr 1fr; gap:var(--s6); } }
+.footer__col{ min-width:0; }
+.footer .logo{ color:var(--on-invert); }
+.footer .logo .logo__mark{ color:var(--on-invert-soft); }
+.footer__tag{ color:var(--on-invert-soft); margin-top:var(--s2); max-width:34ch; font-size:.95rem; }
+.footer__title{
+  font-family:var(--font-body);
+  font-size:.72rem; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--on-invert-soft); margin:0 0 var(--s2);
+}
+.footer__links{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:var(--s1); }
+.footer__links a, .footer__links span{ color:var(--on-invert); font-size:.95rem; transition:color .2s ease; }
+.footer__links a:hover{ color:var(--on-invert-soft); }
+.footer__links .tbr{ color:var(--on-invert-soft); border-color:var(--line-invert); }
+.footer__bottom{
+  border-top:1px solid var(--line-invert);
+  padding-block:var(--s3);
+  display:flex; flex-wrap:wrap; gap:var(--s2) var(--s3);
+  align-items:center; justify-content:space-between;
+}
+.footer__bottom small{ color:var(--on-invert-soft); font-size:.8rem; }
+.footer__bottom .tbr{ color:var(--on-invert-soft); border-color:var(--line-invert); }
+
+.social{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:44px; height:44px;      /* zone tactile */
+  border-radius:999px; border:1px solid var(--line-invert);
+  color:var(--on-invert);
+  transition:background-color .2s ease, border-color .2s ease;
+  flex:0 0 auto;
+}
+.social:hover{ background:color-mix(in srgb, var(--color-accent) 10%, transparent); border-color:var(--on-invert); }
+.social svg{ width:20px; height:20px; }
+
+/* ================================================================
+   BARRE D'ACTION COLLANTE — mobile uniquement (< 900px)
+   ================================================================ */
+.mobile-bar{
+  position:fixed; left:0; right:0; bottom:0; z-index:60;
+  display:flex; gap:1px;
+  background:var(--line);
+  border-top:1px solid var(--line);
+  box-shadow:var(--shadow);
+  padding-bottom:env(safe-area-inset-bottom); /* encoche des téléphones récents */
+}
+.mobile-bar a{
+  flex:1 1 0; min-width:0; min-height:56px;   /* zone tactile confortable */
+  display:flex; align-items:center; justify-content:center; gap:var(--s1);
+  font-size:.9rem; font-weight:500; letter-spacing:.02em;
+}
+.mobile-bar .m-call{ background:var(--surface); color:var(--ink); }
+.mobile-bar .m-book{ background:var(--ink); color:var(--surface); }
+.mobile-bar svg{ width:18px; height:18px; }
+@media (min-width:900px){ .mobile-bar{ display:none; } }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     (c) ZONE « CONTENU À PERSONNALISER » — repère rapide pour dupliquer :
+       - Les 2 couleurs        : dans :root (--color-primary / --color-accent)
+       - Nom du commerce       : partout où apparaît « Vivi's Beauty »
+       - Téléphone             : liens href="tel:+33322000000" (exemple) + affichage
+       - Adresse / commune      : marquées [À REMPLACER] (section CONTACT + JSON-LD)
+       - Horaires              : valeurs d'exemple + marqueur [À REMPLACER]
+       - Tarifs                : valeurs d'exemple + marqueur [À REMPLACER] (PRESTATIONS)
+       - Facebook / itinéraire  : href d'exemple (facebook.com / maps) à remplacer
+       - Photos                : blocs [PHOTO À FOURNIR]
+       - JSON-LD (bas de page)  : mêmes coordonnées à compléter
+     Astuce : les valeurs affichées sont des EXEMPLES plausibles (rendu "fini")
+     et chaque donnée à compléter porte un petit marqueur [À REMPLACER].
+     ============================================================ -->
+
+<a class="skip-link" href="#main">Aller au contenu</a>
+
+<!-- ===== SECTION : EN-TÊTE / NAVIGATION ===== -->
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="logo" href="#top" aria-label="Vivi's Beauty, accueil">
+      <!-- Petit motif pétale SVG inline (courant : currentColor) -->
+      <svg class="logo__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 2c2.5 3 4 5.5 4 8a4 4 0 0 1-8 0c0-2.5 1.5-5 4-8Z" stroke="currentColor" stroke-width="1.3"/>
+        <path d="M12 22c-2.5-3-4-5.5-4-8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+      </svg>
+      Vivi's Beauty
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#apropos">L'institut</a>
+      <a href="#prestations">Prestations</a>
+      <a href="#galerie">Galerie</a>
+      <a href="#horaires">Horaires</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn--solid header-cta" href="#contact">Prendre RDV</a>
+  </div>
+</header>
+
+<main id="main">
+<div id="top"></div>
+
+  <!-- ===== SECTION : HERO ===== -->
+  <section class="hero" aria-labelledby="hero-title">
+    <!-- Motif botanical discret en fond (deux fleurs + tige fine) -->
+    <!-- Motif de fond : courbes soyeuses + brin vegetal + petits eclats.
+         (Univers institut de beaute / bien-etre — aucune couleur en dur :
+         tout est en currentColor, donc derive des 2 couleurs du logo.) -->
+    <svg class="hero__pattern" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <!-- Courbes fluides et soyeuses : douceur, soin, detente -->
+      <g fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round">
+        <path d="M-40 150C150 60 320 210 640 96"/>
+        <path d="M-40 196C160 118 330 262 640 150"/>
+        <path d="M-40 262C180 196 380 338 640 250"/>
+        <!-- Brin vegetal delicat (haut droite) -->
+        <path d="M486 26C512 84 516 142 494 202"/>
+        <path d="M494 70C516 64 536 72 546 90M494 70C476 62 474 44 480 26"/>
+        <path d="M500 116C524 110 544 118 554 136M500 116C482 108 480 90 486 72"/>
+        <path d="M496 162C520 156 540 164 550 182M496 162C478 154 476 136 482 118"/>
+      </g>
+      <!-- Petits eclats "sparkle" : signature discrete de l'univers beaute -->
+      <g fill="currentColor" stroke="none">
+        <path d="M120 96c2 14 6 18 20 20-14 2-18 6-20 20-2-14-6-18-20-20 14-2 18-6 20-20Z"/>
+        <path d="M250 300c1.4 10 4 12.6 14 14-10 1.4-12.6 4-14 14-1.4-10-4-12.6-14-14 10-1.4 12.6-4 14-14Z"/>
+        <path d="M556 246c1.6 11 4.4 13.8 15 15-10.6 1.2-13.4 4-15 15-1.6-11-4.4-13.8-15-15 10.6-1.2 13.4-4 15-15Z"/>
+      </g>
+    </svg>
+    <div class="wrap hero__inner">
+      <div class="hero__content">
+        <!-- LOGO : deposez votre fichier "logo.png" a cote de index.html.
+             Le fond fonce du hero fait disparaitre le fond noir du logo
+             (mix-blend-mode). Si logo.png est absent, il disparait sans
+             casser la page (onerror). Pour l'utiliser aussi dans l'en-tete
+             claire, fournissez un logo a fond transparent. -->
+        <img class="hero__logo" src="logo.png" alt="Vivi's Beauty" width="220" height="220" onerror="this.remove()">
+        <p class="eyebrow"><span>Institut de beauté</span><span class="rule"></span><span>Somme &middot; Hauts-de-France</span></p>
+        <h1 id="hero-title" class="display hero__title">Un moment de douceur,<br><em>rien que pour vous.</em></h1>
+        <p class="hero__sub">Au cœur du village, Vivi's Beauty vous accueille dans un écrin chaleureux pour prendre soin de vous, en toute confiance et sur-mesure.</p>
+        <ul class="hero__specialties">
+          <li>Soins du visage</li>
+          <li>Soins du corps</li>
+          <li>Épilation</li>
+          <li>Manucure</li>
+          <li>Extensions de cils</li>
+          <li>Microblading</li>
+        </ul>
+        <div class="hero__actions">
+          <a class="btn btn--solid-invert" href="#contact">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 2v3M16 2v3M3.5 9h17M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+            Prendre rendez-vous
+          </a>
+          <!-- Téléphone cliquable — remplacer le numéro d'exemple par le vrai -->
+          <a class="btn btn--ghost-invert" href="tel:+33322000000">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5c0 8 7 15 15 15l2-4-5-2-2 2c-3-1.5-5.5-4-7-7l2-2-2-5-4 2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            Appeler
+          </a>
+        </div>
+      </div>
+
+      <div class="hero__media">
+        <!-- Carte "prestation signature" : met en avant l'offre-phare -->
+        <div class="feature-card">
+          <p class="feature-card__eyebrow">La prestation signature</p>
+          <h2>Cils &amp; Microblading</h2>
+          <p>Un regard sublime au naturel, un résultat délicat et durable. Extensions posées cil à cil et sourcils redessinés poil à poil.</p>
+        </div>
+        <!-- Bloc photo latéral élégant, même vide -->
+        <figure class="photo photo--invert" data-ratio="4/5" role="img" aria-label="Emplacement pour une photo de l'institut, à fournir">
+          <svg class="photo__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="13" r="3.2" stroke="currentColor" stroke-width="1.3"/></svg>
+          <figcaption class="photo__label">[PHOTO À FOURNIR]</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION : PRÉSENTATION (À PROPOS) ===== -->
+  <section class="section" id="apropos" aria-labelledby="about-title">
+    <div class="wrap">
+      <div class="about__grid">
+        <div class="about__media reveal">
+          <figure class="photo" data-ratio="3/4" role="img" aria-label="Portrait de la gérante, à fournir">
+            <svg class="photo__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.3"/><path d="M4 21c1-4 4.5-6 8-6s7 2 8 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            <figcaption class="photo__label">[PHOTO À FOURNIR]</figcaption>
+          </figure>
+        </div>
+        <div class="about__body reveal">
+          <p class="eyebrow"><span class="num">01</span><span class="rule"></span><span>L'institut</span></p>
+          <h2 id="about-title" class="h2">Prendre soin de vous, comme d'une amie.</h2>
+          <p class="measure">Vivi's Beauty, c'est avant tout une histoire de proximité. Seule aux commandes de mon institut, je vous accueille dans un espace pensé pour la détente, loin de l'agitation, où chaque geste est réalisé avec attention et bienveillance.</p>
+          <p class="measure">Passionnée par mon métier depuis de nombreuses années, je prends le temps de vous écouter pour vous proposer des soins réellement adaptés à votre peau, à vos envies et à votre rythme. Ici, pas de recette toute faite : uniquement du sur-mesure, dans une ambiance chaleureuse et rassurante.</p>
+          <p class="signature-name">Vivi</p>
+          <p class="signature-role">Esthéticienne &amp; gérante</p>
+        </div>
+      </div>
+
+      <!-- ===== BLOC SIGNATURE : parcours en 3 étapes ===== -->
+      <div class="steps reveal" aria-label="Votre parcours en trois étapes">
+        <div class="step">
+          <div class="step__num">01</div>
+          <h3 class="step__title">Consultation</h3>
+          <p class="step__text">On échange en toute simplicité sur vos attentes, votre peau et vos habitudes pour cerner ce dont vous avez vraiment besoin.</p>
+        </div>
+        <div class="step">
+          <div class="step__num">02</div>
+          <h3 class="step__title">Soin sur-mesure</h3>
+          <p class="step__text">Je réalise votre soin avec des produits choisis et des gestes précis, dans un cadre apaisant, entièrement dédié à votre bien-être.</p>
+        </div>
+        <div class="step">
+          <div class="step__num">03</div>
+          <h3 class="step__title">Conseils</h3>
+          <p class="step__text">Vous repartez avec des conseils personnalisés et des routines simples pour prolonger les bienfaits du soin chez vous.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION : PRESTATIONS ===== -->
+  <section class="section hours" id="prestations" aria-labelledby="serv-title">
+    <div class="wrap">
+      <p class="eyebrow reveal"><span class="num">02</span><span class="rule"></span><span>Prestations</span></p>
+      <h2 id="serv-title" class="h2 reveal">Des soins pensés pour chaque envie.</h2>
+      <p class="lead measure reveal">Une carte simple et lisible. Les tarifs indiqués sont des points de départ : le détail complet vous est communiqué lors de votre prise de rendez-vous.</p>
+
+      <div class="services__grid">
+        <!-- Carte-type prestation, répétée. Tarifs = exemples à remplacer. -->
+        <article class="service reveal">
+          <svg class="service__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.3"/><path d="M9 14c1.2 1.4 4.8 1.4 6 0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M9.3 10h.01M14.7 10h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <h3 class="service__title">Soins du visage</h3>
+          <p class="service__text">Nettoyage en profondeur, hydratation et éclat. Un soin ressourçant, adapté à votre type de peau, pour un teint frais et reposé.</p>
+          <div class="service__price"><span class="label">À partir de</span><span class="value">45 &euro;</span><span class="tbr">[À REMPLACER]</span></div>
+        </article>
+
+        <article class="service reveal">
+          <svg class="service__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3c4 4 6 8 6 11a6 6 0 0 1-12 0c0-3 2-7 6-11Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M12 9c-1.5 2-2.5 4-2.5 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          <h3 class="service__title">Soins du corps</h3>
+          <p class="service__text">Gommage, modelage relaxant et soins gourmands pour relâcher les tensions et retrouver une peau douce et satinée.</p>
+          <div class="service__price"><span class="label">À partir de</span><span class="value">55 &euro;</span><span class="tbr">[À REMPLACER]</span></div>
+        </article>
+
+        <article class="service reveal">
+          <svg class="service__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v18" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M12 8c3-3 6-2 6-2s0 4-3 5-3-3-3-3Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M12 13c-3-3-6-2-6-2s0 4 3 5 3-3 3-3Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+          <h3 class="service__title">Épilation</h3>
+          <p class="service__text">À la cire, avec douceur et précision, pour toutes les zones. Un résultat net et durable dans le plus grand respect de votre peau.</p>
+          <div class="service__price"><span class="label">À partir de</span><span class="value">9 &euro;</span><span class="tbr">[À REMPLACER]</span></div>
+        </article>
+
+        <article class="service reveal">
+          <svg class="service__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 12V7a1.6 1.6 0 0 1 3.2 0v4M11.2 11V6a1.6 1.6 0 0 1 3.2 0v5M14.4 11.5V8a1.6 1.6 0 0 1 3.2 0v6a5.4 5.4 0 0 1-5.4 5.4h-1A5.4 5.4 0 0 1 6 15l-1-2a1.5 1.5 0 0 1 2.5-1.6L8 12" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"/></svg>
+          <h3 class="service__title">Manucure &amp; mains</h3>
+          <p class="service__text">Beauté des mains, pose de vernis et soin des ongles pour des mains soignées, élégantes et parfaitement mises en valeur.</p>
+          <div class="service__price"><span class="label">À partir de</span><span class="value">25 &euro;</span><span class="tbr">[À REMPLACER]</span></div>
+        </article>
+
+        <article class="service reveal">
+          <svg class="service__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 13c3.5-5 14.5-5 18 0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M12 13v3.5M7 12.4 6 15.5M17 12.4 18 15.5M9.4 13l-.6 3M14.6 13l.6 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          <h3 class="service__title">Extensions de cils</h3>
+          <p class="service__text">Un regard sublime au naturel, cil à cil, pour un rendu léger et harmonieux qui vous accompagne au quotidien.</p>
+          <div class="service__price"><span class="label">À partir de</span><span class="value">59 &euro;</span><span class="tbr">[À REMPLACER]</span></div>
+        </article>
+
+        <article class="service reveal">
+          <svg class="service__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 15c4-3 8-4 11-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M14 12l5-5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M17 4l3 3-1.6 1.6-3-3Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+          <h3 class="service__title">Microblading</h3>
+          <p class="service__text">Restructuration des sourcils poil à poil pour un regard dessiné et naturel, adapté à la forme de votre visage.</p>
+          <div class="service__price"><span class="label">À partir de</span><span class="value">180 &euro;</span><span class="tbr">[À REMPLACER]</span></div>
+        </article>
+      </div>
+
+      <p class="services__note">Tarifs affichés à titre d'exemple, à compléter avec vos prix réels avant la mise en ligne <span class="tbr">[À REMPLACER]</span>. Un devis précis vous est proposé lors du rendez-vous, selon la prestation choisie.</p>
+    </div>
+  </section>
+
+  <!-- ===== SECTION SIGNATURE : PHILOSOPHIE (fond foncé) ===== -->
+  <section class="section philo" aria-label="Notre philosophie">
+    <svg class="philo__motif" viewBox="0 0 460 180" fill="none" aria-hidden="true">
+      <g stroke="currentColor" stroke-width="1">
+        <path d="M230 180C230 104 172 64 108 64M230 180C230 104 288 64 352 64M230 180V22" stroke-linecap="round"/>
+        <path d="M230 96c0 0-20-10-30-24 18 2 30 12 30 24Zm0 0c0 0 20-10 30-24-18 2-30 12-30 24Z" stroke-linejoin="round"/>
+      </g>
+    </svg>
+    <div class="wrap">
+      <p class="eyebrow eyebrow--center"><span class="rule"></span><span>Notre philosophie</span><span class="rule"></span></p>
+      <blockquote class="philo__quote">&laquo;&nbsp;Prendre soin de soi n'est pas un luxe : c'est une douceur essentielle.&nbsp;&raquo;</blockquote>
+      <p class="philo__cite">Vivi's Beauty</p>
+    </div>
+  </section>
+
+  <!-- ===== SECTION : GALERIE ===== -->
+  <section class="section" id="galerie" aria-labelledby="gal-title">
+    <div class="wrap">
+      <p class="eyebrow reveal"><span class="num">03</span><span class="rule"></span><span>Galerie</span></p>
+      <h2 id="gal-title" class="h2 reveal">Un aperçu de l'institut.</h2>
+      <p class="lead measure reveal">Bientôt, vos plus beaux résultats et l'ambiance de notre cocon. En attendant, voici les emplacements prévus pour vos photos.</p>
+
+      <div class="gallery__grid">
+        <figure class="photo reveal" data-ratio="4/5" role="img" aria-label="Emplacement galerie, à fournir">
+          <svg class="photo__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="13" r="3.2" stroke="currentColor" stroke-width="1.3"/></svg>
+          <figcaption class="photo__label">[PHOTO À FOURNIR]</figcaption>
+        </figure>
+        <figure class="photo reveal" data-ratio="4/5" role="img" aria-label="Emplacement galerie, à fournir">
+          <svg class="photo__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2c2.5 3 4 5.5 4 8a4 4 0 0 1-8 0c0-2.5 1.5-5 4-8Z" stroke="currentColor" stroke-width="1.3"/><path d="M12 22c-2.5-3-4-5.5-4-8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          <figcaption class="photo__label">[PHOTO À FOURNIR]</figcaption>
+        </figure>
+        <figure class="photo reveal" data-ratio="4/5" role="img" aria-label="Emplacement galerie, à fournir">
+          <svg class="photo__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="13" r="3.2" stroke="currentColor" stroke-width="1.3"/></svg>
+          <figcaption class="photo__label">[PHOTO À FOURNIR]</figcaption>
+        </figure>
+        <figure class="photo reveal" data-ratio="4/5" role="img" aria-label="Emplacement galerie, à fournir">
+          <svg class="photo__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2c2.5 3 4 5.5 4 8a4 4 0 0 1-8 0c0-2.5 1.5-5 4-8Z" stroke="currentColor" stroke-width="1.3"/><path d="M12 22c-2.5-3-4-5.5-4-8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          <figcaption class="photo__label">[PHOTO À FOURNIR]</figcaption>
+        </figure>
+        <figure class="photo reveal" data-ratio="4/5" role="img" aria-label="Emplacement galerie, à fournir">
+          <svg class="photo__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="13" r="3.2" stroke="currentColor" stroke-width="1.3"/></svg>
+          <figcaption class="photo__label">[PHOTO À FOURNIR]</figcaption>
+        </figure>
+        <figure class="photo reveal" data-ratio="4/5" role="img" aria-label="Emplacement galerie, à fournir">
+          <svg class="photo__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2c2.5 3 4 5.5 4 8a4 4 0 0 1-8 0c0-2.5 1.5-5 4-8Z" stroke="currentColor" stroke-width="1.3"/><path d="M12 22c-2.5-3-4-5.5-4-8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          <figcaption class="photo__label">[PHOTO À FOURNIR]</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION : HORAIRES ===== -->
+  <section class="section hours" id="horaires" aria-labelledby="hours-title">
+    <div class="wrap">
+      <div class="hours__grid">
+        <div class="hours__intro reveal">
+          <p class="eyebrow"><span class="num">04</span><span class="rule"></span><span>Horaires</span></p>
+          <h2 id="hours-title" class="h2">Ouvert pour prendre soin de vous.</h2>
+          <p class="lead">Sur rendez-vous de préférence, pour vous garantir un accueil serein et tout le temps qu'il vous faut.</p>
+          <span class="status-badge"><span class="dot" aria-hidden="true"></span> Sur rendez-vous</span>
+          <div class="hours__cta">
+            <a class="btn btn--solid" href="tel:+33322000000">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5c0 8 7 15 15 15l2-4-5-2-2 2c-3-1.5-5.5-4-7-7l2-2-2-5-4 2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+              Appeler pour réserver
+            </a>
+          </div>
+        </div>
+        <div class="reveal">
+          <!-- Horaires d'exemple : à remplacer par les vrais créneaux -->
+          <ul class="hours__list">
+            <li class="hours__row hours__row--closed">
+              <span class="hours__day"><span class="status-dot status-dot--off" aria-hidden="true"></span>Lundi</span>
+              <span class="hours__time">Fermé</span>
+            </li>
+            <li class="hours__row">
+              <span class="hours__day"><span class="status-dot" aria-hidden="true"></span>Mardi</span>
+              <span class="hours__time">09h30 &ndash; 19h00</span>
+            </li>
+            <li class="hours__row">
+              <span class="hours__day"><span class="status-dot" aria-hidden="true"></span>Mercredi</span>
+              <span class="hours__time">09h30 &ndash; 19h00</span>
+            </li>
+            <li class="hours__row">
+              <span class="hours__day"><span class="status-dot" aria-hidden="true"></span>Jeudi</span>
+              <span class="hours__time">09h30 &ndash; 19h00</span>
+            </li>
+            <li class="hours__row">
+              <span class="hours__day"><span class="status-dot" aria-hidden="true"></span>Vendredi</span>
+              <span class="hours__time">09h30 &ndash; 19h30</span>
+            </li>
+            <li class="hours__row">
+              <span class="hours__day"><span class="status-dot" aria-hidden="true"></span>Samedi</span>
+              <span class="hours__time">09h00 &ndash; 17h00</span>
+            </li>
+            <li class="hours__row hours__row--closed">
+              <span class="hours__day"><span class="status-dot status-dot--off" aria-hidden="true"></span>Dimanche</span>
+              <span class="hours__time">Fermé</span>
+            </li>
+          </ul>
+          <p class="hours__note">Horaires donnés à titre d'exemple <span class="tbr">[À REMPLACER]</span> &middot; ils peuvent varier pendant les vacances scolaires et jours fériés.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION : CONTACT ===== -->
+  <section class="section" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <div class="contact__grid">
+        <div class="contact__col reveal">
+          <p class="eyebrow"><span class="num">05</span><span class="rule"></span><span>Contact</span></p>
+          <h2 id="contact-title" class="h2">Réservons votre moment.</h2>
+          <p class="lead measure">Un rendez-vous, une question, un conseil ? Je réponds avec plaisir. Le plus simple reste un petit appel.</p>
+
+          <ul class="contact__list">
+            <li class="contact__item">
+              <svg class="contact__ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5c0 8 7 15 15 15l2-4-5-2-2 2c-3-1.5-5.5-4-7-7l2-2-2-5-4 2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+              <div class="contact__body">
+                <div class="contact__label">Téléphone</div>
+                <!-- href valide (numéro d'exemple) — à remplacer par le vrai -->
+                <a class="contact__value" href="tel:+33322000000">03 22 00 00 00 <span class="tbr">[À REMPLACER]</span></a>
+              </div>
+            </li>
+            <li class="contact__item">
+              <svg class="contact__ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s7-5.5 7-11a7 7 0 0 0-14 0c0 5.5 7 11 7 11Z" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="10" r="2.6" stroke="currentColor" stroke-width="1.4"/></svg>
+              <div class="contact__body">
+                <div class="contact__label">Adresse</div>
+                <div class="contact__value">12 rue de l'Église, 80300 &middot; Somme <span class="tbr">[À REMPLACER]</span></div>
+              </div>
+            </li>
+            <li class="contact__item">
+              <svg class="contact__ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3V2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+              <div class="contact__body">
+                <div class="contact__label">Réseaux</div>
+                <!-- href valide (page Facebook générique) — à remplacer par le vrai lien -->
+                <a class="contact__value" href="https://www.facebook.com/" target="_blank" rel="noopener">Suivez Vivi's Beauty sur Facebook <span class="tbr">[À REMPLACER]</span></a>
+              </div>
+            </li>
+          </ul>
+
+          <div class="contact__actions">
+            <a class="btn btn--solid" href="tel:+33322000000">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5c0 8 7 15 15 15l2-4-5-2-2 2c-3-1.5-5.5-4-7-7l2-2-2-5-4 2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+              Appeler l'institut
+            </a>
+            <a class="btn btn--ghost" href="https://www.facebook.com/" target="_blank" rel="noopener">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3V2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+              Écrire sur Facebook
+            </a>
+          </div>
+        </div>
+
+        <!-- Plan STYLISÉ en SVG inline — PAS d'iframe / PAS de Google Maps (RGPD-friendly) -->
+        <div class="map reveal">
+          <svg class="map__svg" viewBox="0 0 600 400" role="img" aria-label="Plan stylisé indiquant l'emplacement approximatif de l'institut">
+            <rect class="map-bg" width="600" height="400"/>
+            <!-- routes principales -->
+            <g class="map-road" stroke-width="8">
+              <path d="M-20 132 L640 176"/>
+              <path d="M120 -20 L196 420"/>
+              <path d="M-20 300 L640 320"/>
+              <path d="M384 -20 L456 420"/>
+            </g>
+            <!-- routes secondaires -->
+            <g class="map-road--minor" stroke-width="3">
+              <path d="M-20 224 L640 250"/>
+              <path d="M262 -20 L300 420"/>
+            </g>
+            <!-- îlots / pavés de maisons -->
+            <g class="map-block" stroke-width="2">
+              <rect x="222" y="200" width="118" height="70" rx="6"/>
+              <rect x="60" y="60" width="90" height="60" rx="6"/>
+              <rect x="470" y="82" width="90" height="70" rx="6"/>
+            </g>
+            <!-- pin de l'institut -->
+            <g transform="translate(300 202)">
+              <circle class="map-halo" r="46"/>
+              <path class="map-pin" d="M0 -34c11 0 20 9 20 20 0 14-20 30-20 30S-20 0-20 -14c0-11 9-20 20-20Z"/>
+              <circle class="map-pin__dot" cy="-14" r="7"/>
+            </g>
+          </svg>
+          <span class="map__tag">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s7-5.5 7-11a7 7 0 0 0-14 0c0 5.5 7 11 7 11Z" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.5"/></svg>
+            Plan indicatif
+          </span>
+          <div class="map__foot">
+            <span class="map__addr">12 rue de l'Église, 80300 &middot; Somme <span class="tbr">[À REMPLACER]</span></span>
+            <!-- href valide (recherche maps) — à remplacer par le vrai lien d'itinéraire -->
+            <a class="btn btn--ghost" href="https://www.google.com/maps" target="_blank" rel="noopener" style="min-height:44px;padding:0 var(--s3)">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2 3 21l9-4 9 4L12 2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+              Itinéraire
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ===== SECTION : PIED DE PAGE ===== -->
+<footer class="site-footer footer" aria-labelledby="footer-title">
+  <h2 id="footer-title" class="sr-only">Informations et navigation de bas de page</h2>
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__col">
+        <a class="logo" href="#top">
+          <svg class="logo__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2c2.5 3 4 5.5 4 8a4 4 0 0 1-8 0c0-2.5 1.5-5 4-8Z" stroke="currentColor" stroke-width="1.3"/><path d="M12 22c-2.5-3-4-5.5-4-8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          Vivi's Beauty
+        </a>
+        <p class="footer__tag">Institut de beauté de village dans la Somme. Soins du visage et du corps, épilation, manucure, cils et microblading &mdash; en toute douceur.</p>
+      </div>
+      <div class="footer__col">
+        <p class="footer__title">Navigation</p>
+        <ul class="footer__links">
+          <li><a href="#apropos">L'institut</a></li>
+          <li><a href="#prestations">Prestations</a></li>
+          <li><a href="#galerie">Galerie</a></li>
+          <li><a href="#horaires">Horaires</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__title">Contact</p>
+        <ul class="footer__links">
+          <li><a href="tel:+33322000000">03 22 00 00 00 <span class="tbr">[À REMPLACER]</span></a></li>
+          <li><span>12 rue de l'Église, 80300 &middot; Somme <span class="tbr">[À REMPLACER]</span></span></li>
+          <li>
+            <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook de Vivi's Beauty">
+              <span class="social" style="vertical-align:middle;margin-right:8px">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3V2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+              </span>Facebook <span class="tbr">[À REMPLACER]</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <small>&copy; <span id="year"></span> Vivi's Beauty &mdash; Tous droits réservés. Mentions légales <span class="tbr">[À REMPLACER]</span>.</small>
+      <small>Site conçu avec soin.</small>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== BARRE D'ACTION COLLANTE — mobile uniquement ===== -->
+<nav class="mobile-bar" aria-label="Actions rapides">
+  <a class="m-call" href="tel:+33322000000">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5c0 8 7 15 15 15l2-4-5-2-2 2c-3-1.5-5.5-4-7-7l2-2-2-5-4 2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+    Appeler
+  </a>
+  <a class="m-book" href="#contact">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 2v3M16 2v3M3.5 9h17M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+    Prendre RDV
+  </a>
+</nav>
+
+<!-- ============================================================
+     SEO — JSON-LD BeautySalon (sous-type de LocalBusiness)
+     Valeurs d'exemple ci-dessous : REMPLACER par les vraies coordonnées.
+     (téléphone, adresse, ville, horaires, URL, image, Facebook)
+     ============================================================ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BeautySalon",
+  "name": "Vivi's Beauty",
+  "description": "Institut de beauté de village dans la Somme : soins du visage et du corps, épilation, manucure, extensions de cils et microblading.",
+  "image": "https://www.vivis-beauty.fr/photo-institut.jpg",
+  "url": "https://www.vivis-beauty.fr/",
+  "telephone": "+33 3 22 00 00 00",
+  "priceRange": "€€",
+  "currenciesAccepted": "EUR",
+  "paymentAccepted": "Espèces, Carte bancaire",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "12 rue de l'Église",
+    "addressLocality": "[À REMPLACER : commune]",
+    "postalCode": "80300",
+    "addressRegion": "Hauts-de-France",
+    "addressCountry": "FR"
+  },
+  "areaServed": {
+    "@type": "AdministrativeArea",
+    "name": "Somme (80), Hauts-de-France"
+  },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Wednesday","Thursday"], "opens": "09:30", "closes": "19:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "09:30", "closes": "19:30" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "17:00" }
+  ],
+  "sameAs": ["https://www.facebook.com/"],
+  "makesOffer": [
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Soins du visage" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Soins du corps" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Épilation" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Manucure et beauté des mains" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Extensions de cils" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Microblading" } }
+  ]
+}
+</script>
+
+<!-- ============================================================
+     JS — apparition au défilement + année du footer
+     Aucune dépendance externe.
+     ============================================================ -->
+<script>
+  // Année dynamique du pied de page
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Apparition discrète au défilement (respecte prefers-reduced-motion)
+  (function(){
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var items = document.querySelectorAll('.reveal');
+    if (reduce || !('IntersectionObserver' in window)) {
+      items.forEach(function(el){ el.classList.add('is-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){
+          e.target.classList.add('is-visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    items.forEach(function(el){ io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>
