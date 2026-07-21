@@ -326,6 +326,8 @@ p{ margin:0 0 var(--s2); }
   min-width:0;
 }
 .logo .logo__mark{ width:22px; height:22px; color:var(--ink-soft); flex:0 0 auto; }
+/* Logo image de l'en-tête (version noire recadrée, lisible sur fond clair) */
+.brand-logo{ height:40px; width:auto; display:block; max-width:min(210px, 52vw); }
 
 .nav{ display:none; }
 @media (min-width:900px){
@@ -854,12 +856,8 @@ a.contact__value:hover{ color:var(--ink-soft); }
 <header class="site-header">
   <div class="wrap site-header__inner">
     <a class="logo" href="#top" aria-label="Vivi's Beauty, accueil">
-      <!-- Petit motif pétale SVG inline (courant : currentColor) -->
-      <svg class="logo__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 2c2.5 3 4 5.5 4 8a4 4 0 0 1-8 0c0-2.5 1.5-5 4-8Z" stroke="currentColor" stroke-width="1.3"/>
-        <path d="M12 22c-2.5-3-4-5.5-4-8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-      </svg>
-      Vivi's Beauty
+      <!-- Logo de l'institut (fichier logo.png à la racine du dépôt). -->
+      <img class="brand-logo" src="logo.png" alt="Vivi's Beauty" width="371" height="132">
     </a>
     <nav class="nav" aria-label="Navigation principale">
       <a href="#apropos">L'institut</a>
@@ -881,12 +879,7 @@ a.contact__value:hover{ color:var(--ink-soft); }
 
     <div class="wrap hero__inner">
       <div class="hero__content">
-        <!-- LOGO : deposez votre fichier "logo.png" a cote de index.html.
-             Le fond fonce du hero fait disparaitre le fond noir du logo
-             (mix-blend-mode). Si logo.png est absent, il disparait sans
-             casser la page (onerror). Pour l'utiliser aussi dans l'en-tete
-             claire, fournissez un logo a fond transparent. -->
-        <img class="hero__logo" src="logo.png" alt="Vivi's Beauty" width="220" height="220" onerror="this.remove()">
+        <!-- Le logo est dans l'en-tête ; ici, place à la typographie. -->
         <p class="eyebrow"><span>Institut de beauté</span><span class="rule"></span><span>Somme &middot; Hauts-de-France</span></p>
         <h1 id="hero-title" class="display hero__title">Un moment de douceur,<br><em>rien que pour vous.</em></h1>
         <p class="hero__sub">Au cœur du village, Vivi's Beauty vous accueille dans un écrin chaleureux pour prendre soin de vous, en toute confiance et sur-mesure.</p>
