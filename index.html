@@ -308,9 +308,13 @@ p{ margin:0 0 var(--s2); }
 .site-header__inner{
   display:flex;
   align-items:center;
-  justify-content:space-between;
+  justify-content:center;      /* mobile : logo centré (seul élément visible) */
   gap:var(--s2);
   min-height:64px;
+}
+@media (min-width:640px){
+  /* dès que le bouton « Prendre RDV » / le menu apparaît : logo à gauche, actions à droite */
+  .site-header__inner{ justify-content:space-between; }
 }
 /* Lockup typographique du logo */
 .logo{
